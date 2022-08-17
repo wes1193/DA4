@@ -1,12 +1,19 @@
-<h1>{{title}}</h1>
 
-<ul>
-    <li *ngFor='let user of users' >  {{user.id}} - {{user.userName }}  </li>
-</ul>
-<!-- 
+<app-nav></app-nav>
+
+<div class="container" style="margin-top: 100px;">
+    <app-home></app-home>
+</div>
+
+<!--
+
+    <ul>
+        <li *ngFor='let user of users' >  {{user.id}} - {{user.userName }}  </li>
+    </ul>
+
 <h3>---------------------</h3>
 <ul>
     <li>  {{users[2].userName}} - {{users[2].id}}  </li>
-    <li>  {{users[5].userName}} - {{users[5].id}}  </li>
+    <li>  {{users[0].userName}} - {{users[0].id}}  </li>
 </ul>
 -->
