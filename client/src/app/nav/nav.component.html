@@ -1,34 +1,67 @@
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
     <div class="container">
-      <a class="navbar-brand" href="#">Dating App</a>
+      <a class="navbar-brand" routerLink='/'>Dating App</a>
      
-     
-         <ul class="navbar-nav mr-auto"  *ngIf="accountService.currentUser$ | async">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Matches</a>
+         <ul class="navbar-nav mr-auto"  >
+          <ng-container *ngIf="accountService.currentUser$ | async">
+            <li class="nav-item">
+              <a class="nav-link" routerLink='/members' routerLinkActive='active' >Matches</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink='/lists' routerLinkActive='active'>Lists</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink='/messages' routerLinkActive='active'>Messages</a>
+            </li>
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" 
+                 href="#" id="navbarDropdownMenuLink" 
+                 data-toggle="dropdown" 
+                 aria-haspopup="true" 
+                 aria-expanded="false">
+                Dropdown link</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li class="nav-item">
+                    <a class="dropdown-item" href="#">Action</a>
+                </li>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+
+          <li>
+            <div class="dropdown"  dropdown>
+              <a  class="dropdown-toggle text-light" dropdownToggle>DropDown 2</a>  
+              <div class="dropown-menu mt-3" *dropdownMenu>
+                <a  class="dropdown-item">Choice 1</a>
+                <a  class="dropdown-item">Choice 2</a>
+                <a  class="dropdown-item">Choice 3</a>
+                <div class="dropdown-divider"></div>
+                <a  class="dropdown-item" (click)="logout()" >Logout</a>
+              </div>
+            </div>
+
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="http://www.yahoo.com">Lists</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="http://www.bing.com">Messages</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="http://www.google.com">Appointments</a>
-          </li>
+
+  
+          </ng-container>
+          
         <!--  <li class="nav-item">
             <a class="nav-link" (click)="logout()" >Logout</a>
           </li>
           -->
         </ul>
 
-        <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-          <a  class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>  
+        <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+          <a  class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.username | titlecase}}</a>  
           <div class="dropown-menu mt-3" *dropdownMenu>
             <a  class="dropdown-item">Edit Profile</a>
             <a  class="dropdown-item">View Profile</a>
             <a  class="dropdown-item">Remove Profile</a>
+            <div class="dropdown-divider"></div>
+            <a  class="dropdown-item">Do Something Else</a>
             <div class="dropdown-divider"></div>
             <a  class="dropdown-item" (click)="logout()" >Logout</a>
           </div>
@@ -51,7 +84,7 @@
             type="password" 
             placeholder="Password">
 
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+          <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
         </form>
       
       </div>
