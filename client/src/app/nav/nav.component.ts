@@ -65,13 +65,13 @@ export class NavComponent implements OnInit {
                       console.log(this.Tm() + " - nav.component.ts - login -  ");
 
                       this.router.navigateByUrl('/members');  /* nav to members page*/
-                    } , error => 
+                    } /*, error => 
                         { console.log(this.Tm() + " - nav.component.ts - login - ERROR = " + JSON.stringify(error) ) ;
                           console.log(this.Tm() + " - more info") ;
                           var ans  = confirm("Login ERROR: \n \n info: \n" + JSON.stringify(error) );
                           console.log(this.Tm() + " - nav.component.ts - login - ERROR response = " + JSON.stringify(ans) ) ;
                           this.toastr.error(error.error);
-                       }
+                       } */
                   )
 
         console.log(this.Tm() + " - nav.component.ts - login - done");

@@ -25,6 +25,7 @@ namespace API.Controllers
         {
             //var users = _context.Users.ToList();
             //return users;
+            Console.WriteLine("\n\nAPI UsersControler GetUsers\n\n");
             return await  _context.Users.ToListAsync();
         }
 
@@ -36,6 +37,7 @@ namespace API.Controllers
         {
             //var user = _context.Users.Find(id);
             //return user;
+            Console.WriteLine("\n\nAPI UsersControler GetUsers - ID: " + id.ToString());           
             return await  _context.Users.FindAsync(id);
         }
     }

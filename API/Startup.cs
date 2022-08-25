@@ -20,6 +20,7 @@ using API.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using API.Middleware;
 
 namespace API
 {
@@ -43,9 +44,9 @@ namespace API
             services.AddIdentityServics(_config);
 
             services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
-            });
+                { c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" } );
+                }
+            );
         }
 
 
@@ -53,14 +54,14 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             /* don't change the order that these methods are called */
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
-            }
+
+            //if (env.IsDevelopment())
+            //{  app.UseDeveloperExceptionPage();                
+            //}
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
-
             
             app.UseRouting();
 
@@ -70,13 +71,13 @@ namespace API
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200")); 
  
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+                                {  endpoints.MapControllers();
+                                }
+                            );
+            
         }
     }
 }

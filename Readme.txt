@@ -7,7 +7,10 @@ to login to app, use
 user name: wes, bob, etc
 pswd : Pswd
     
-start on Lesson #58
+start on Lesson #78
+
+when in the API , CSharp code, use "CTRL+." control + period, to bring in include statements.
+
 
 do Ctrl+Shft+P then Select
 SqlLite: Open Databse
