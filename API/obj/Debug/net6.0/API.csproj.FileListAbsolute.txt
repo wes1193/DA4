@@ -114,3 +114,6 @@ C:\temp\DatingApp\API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 C:\temp\DatingApp\API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\temp\DatingApp\API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
 C:\temp\DatingApp\API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\temp\DatingApp\API\bin\Debug\net6.0\Data\UserSeedData.json
+C:\temp\DatingApp\API\bin\Debug\net6.0\AutoMapper.dll
+C:\temp\DatingApp\API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

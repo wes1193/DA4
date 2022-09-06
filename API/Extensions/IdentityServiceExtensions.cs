@@ -23,6 +23,7 @@ namespace API.Extensions
              IConfiguration config)
         {
 
+            Console.WriteLine("IdentityServiceExtensions - AddIdentityServics") ;            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters

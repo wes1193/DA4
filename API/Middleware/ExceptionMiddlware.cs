@@ -32,9 +32,9 @@ namespace API.Middleware
         public async Task InvokeAsync(HttpContext context)
         {
             try {
-                Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API ExceptionMiddleware - InvokeAsync - Start Try Block \n");
+                Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API.Middleware.ExceptionMiddleware - InvokeAsync - Start Try Block \n");
                 await _next(context);
-                 Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API ExceptionMiddleware - InvokeAsync  - Exit Try Block \n");
+                 Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API.Middleware.ExceptionMiddleware - InvokeAsync  - Exit Try Block \n");
            
             }
             catch(Exception ex)
