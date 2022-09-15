@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 
 
@@ -10,33 +11,38 @@ import { User } from '../_models/user';
 })
 
 export class AccountService {
-  baseUrl = 'https://localhost:5001/api/';
+
+  baseUrl = environment.apiUrl;
   
   // save current user
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) 
+  {
+    console.log("\n\n >>>>> account service constructor");
+  }
 
   login(model: any)
-  { console.log("account service login module - login - start");
+  { 
+      console.log("\n account service login module - login - start");
    
-  return this.http.post(this.baseUrl + 'account/login', model).pipe
-    (
-      map( (response: User) => 
-        {
-            const user = response;
-            if (user)  
-            { 
-              localStorage.setItem('user', JSON.stringify(user));
-              this.currentUserSource.next(user);
-              console.log("  account service login module - Login - user: " + JSON.stringify(user.username) );
+      return this.http.post(this.baseUrl + 'account/login', model).pipe
+        (
+          map( (response: User) => 
+            {
+                const user = response;
+                if (user)  
+                { 
+                  localStorage.setItem('user', JSON.stringify(user));
+                  this.currentUserSource.next(user);
+                  console.log("\n >>> account service login module - Login - user: " + JSON.stringify(user.username) );
+                }
             }
-        }
-      )
-    ) ;
-    console.log("account service login module - login - done");
+          )
+        ) ;
+        console.log("account service login module - login - done");
   }
 
 
