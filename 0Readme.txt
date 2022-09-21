@@ -1,5 +1,5 @@
 
-start on Lesson #113 
+start on Lesson #122  
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 to run the app
@@ -23,8 +23,11 @@ https://github.com/TryCatchLearn/DatingApp/commits/master
 
 
 My GitHub repo:
+( it's the "DA4" repository )
+
+https://github.com/wes1193/DA4/commits/main
+
 https://github.com/wes1193/DatingApp
-it's the "DA4" repository
 
 "# DA4" 
 "# DA4" 
@@ -49,7 +52,7 @@ Automapper.Extensions.Microsoft.DependencyInjection (by Jimmy Bogard)
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 TypeScript
-Json to TypeScript converter
+Json to TypeScript converter - utility
 
 cut json from PostScript call to GetUsers, pick one json result from the list
 and go here. and paste it it
@@ -68,27 +71,19 @@ and New Query [Select]
 Sample Data provided for this course:
 C:\temp\DatingApp\StudentAssets\UserSeedData.json
 
-SQL:
-SQL to read Users table
-SELECT 
-    id
-    ,UserName
-    ,email
-    ,Phone
-    ,SUBSTR(PasswordHash,1,12) AS [Pswd]
-    ,SUBSTR(PasswordSalt,1,12) AS [Salt]
- FROM Users;
-
 
  to move changes from ef to the database,
- use " dotnet ef migrations add ExtendedUserEnity "
+ use "dotnet ef migrations add ExtendedUserEnity "
  or use "dotnet ef migrations remove"
 
  to commit the migration to the database
  use "dotnet ef database update"
 
- to delete the database, in order to start over
+ to DELETE the database, in order to start over
  dotnet ef database drop
+
+ then once the reseed logic is in place, should be able to do
+ DOTNET WATCH RUN,  and it will recreate
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 to Debug
@@ -130,6 +125,24 @@ go here for usage instructions ?
 https://github.com/kolkov/ngx-gallery#readme
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ngx-spinner
+http://www.npmjs.com/package/ngx-spinner
+
+cd to here: C:\temp\DatingApp\client
+then run this "npm i ngx-spinner@12.0.0"
+
+
+from 
+PS C:\temp\DatingApp\client>   ng add ngx-spinner
+when I did this it said it installed, but there was a dependency issue
+
+so, tried this
+npm install ngx-spinner --force
+
+
+his video got an error and he had to installnpm install @angular/cdk
+but it got an error for member
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
