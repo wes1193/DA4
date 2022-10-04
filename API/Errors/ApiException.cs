@@ -12,6 +12,8 @@ namespace API.Errors
                StatusCode = statusCode;
                Message = message;  
                Details =  details;
+               // Console.WriteLine("");
+               // 
         }
 
         public int StatusCode {get; set;}

@@ -16,7 +16,7 @@ namespace API
        // public static void Main(string[] args)
         public static async Task  Main(string[] args)
         {
-            Console.WriteLine("\n\n>>>>>>>>  <<<<<<<<<<<\n API - Main - Start \n>>>>>>>>  <<<<<<<<<<<\n\n");
+            Console.WriteLine("\n\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>>>>>>>  <<<<<<<<<<<\n API - Main - Start \n>>>>>>>>  <<<<<<<<<<<\n\n");
             //CreateHostBuilder(args).Build().Run();
            
             var host = CreateHostBuilder(args).Build();  // don't call .Run(), just build();
@@ -26,10 +26,11 @@ namespace API
             {
                 var context = services.GetRequiredService<DataContext>();
                 await context.Database.MigrateAsync();
+                Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>>>>>>>  API - Main - Calling Seed.SeedUsers");
                 await Seed.SeedUsers(context);
             }
             catch (Exception ex)
-            {   Console.WriteLine("\n API - Main - Error: " + ex.Message);  
+            {   Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API - Main - Error: " + ex.Message);  
                 var logger = services.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex, "API - Main - An error occurred during migration.");         
             }
@@ -37,12 +38,7 @@ namespace API
             // now start the app
             await host.RunAsync();
 
-
-
-            Console.WriteLine("\n\n>>>>>>>>  <<<<<<<<<<<\n API - Main - Stop \n>>>>>>>>  <<<<<<<<<<<\n\n");
-
-            Console.WriteLine("\n\n>>>>>>>>  <<<<<<<<<<<\n API - Main - Stop \n>>>>>>>>  <<<<<<<<<<<\n\n");
-
+            Console.WriteLine("\n\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>>>>>>>  <<<<<<<<<<<\n API - Main - Stop \n>>>>>>>>  <<<<<<<<<<<\n\n");
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

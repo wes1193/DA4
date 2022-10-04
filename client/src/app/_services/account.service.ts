@@ -19,11 +19,13 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
 
 
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
   constructor(private http: HttpClient) 
   {
     console.log("\n\n >>>>> account service constructor");
   }
 
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
   login(model: any)
   { 
       console.log("\n account service login module - login - start");
@@ -35,8 +37,7 @@ export class AccountService {
                 const user = response;
                 if (user)  
                 { 
-                  localStorage.setItem('user', JSON.stringify(user));
-                  this.currentUserSource.next(user);
+                  this.setCurrentUser(user);
                   console.log("\n >>> account service login module - Login - user: " + JSON.stringify(user.username) );
                 }
             }
@@ -45,25 +46,30 @@ export class AccountService {
         console.log("account service login module - login - done");
   }
 
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
   register(model: any)
   { console.log("account service register - start - model:" + JSON.stringify(model)); 
     return this.http.post( this.baseUrl + 'account/register', model ).pipe
     (
       map( (user: User) => 
-                  { if(user) 
-                    { localStorage.setItem('user', JSON.stringify(user));
-                      this.currentUserSource.next(user);
+                  { if(user)  { 
+                      this.setCurrentUser(user);
                     }
                   } 
         )
     )
     
   }
+ 
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
   setCurrentUser(user: User)
   {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
+
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
   logout() {
     console.log("  account service login module - Logout - start");

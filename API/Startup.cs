@@ -38,7 +38,7 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {   
-            Console.WriteLine("\n>>>> Startup.cs - ConfigureServices()");
+            Console.WriteLine("\n\n>>>> API - Startup.cs - ConfigureServices()");
             services.AddApplicationServices(_config);
             services.AddControllers();
             services.AddCors();        /* add this to allow the Ang client to access the API on a different URL */

@@ -20,13 +20,14 @@ namespace API.Controllers
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
 
+        /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         public AccountController(DataContext context, ITokenService tokenService)
-        {
+        {   Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] AccountController Constructor") ;           
             _tokenService = tokenService;
-            _context = context;
-            Console.WriteLine("\n\nAPI AccountController Constructor\n\n");
+            _context = context;            
         }
         
+        /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register( RegisterDto registerDto)
         {
@@ -51,27 +52,34 @@ namespace API.Controllers
                 
         }
 
+
+        /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login( LoginDto loginDto)
-        {
-            
-            Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Login\n");
+        {   Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Login - \n");
            
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username  );
+            var user = await _context.Users
+                .Include(p => p.Photos)
+                .SingleOrDefaultAsync(x => x.UserName == loginDto.Username  );
 
+            Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Login - is user null\n");
             if (user == null)
             {
                 Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Login - Unauthorized User \n");
                 return Unauthorized(String.Format("Invalid username ({0}) ", loginDto.Username));
             }
 
+            Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Login - check user has and salt\n");
             if(user.PasswordHash == null || user.PasswordSalt == null )
             {
                 Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Login - Unauthorized Password \n");
                 return Unauthorized(String.Format("Invalid credentials for user ({0}) ", loginDto.Username));
             }
 
+            Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Login - get hmac");
             using var hmac = new HMACSHA512(user.PasswordSalt);
+
+            Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Login - computer hash");
             var computedHash =  hmac.ComputeHash( Encoding.UTF8.GetBytes(loginDto.Password) );
             
             for (int i = 0 ; i < computedHash.Length; i++)
@@ -83,13 +91,16 @@ namespace API.Controllers
                 }
             }
 
+            Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Login - return new user");
             return new UserDto
             {   Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user) ,
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
             };
 
         }
 
+        /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         private async Task<bool> UserExists(string username)
         {
             bool b = false;
@@ -97,5 +108,9 @@ namespace API.Controllers
            //  return   b;
             return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());          
         }
+
+        /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
     }
 }

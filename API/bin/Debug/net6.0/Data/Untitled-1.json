@@ -1,0 +1,66 @@
+{
+    "results": [
+        {
+            "gender": "female",
+            "name": {
+                "title": "Mrs",
+                "first": "Julia",
+                "last": "Kumpula"
+            },
+            "location": {
+                "street": {
+                    "number": 762,
+                    "name": "Pyynikintie"
+                },
+                "city": "Kolari",
+                "state": "Ostrobothnia",
+                "country": "Finland",
+                "postcode": 43908,
+                "coordinates": {
+                    "latitude": "-24.3966",
+                    "longitude": "63.3679"
+                },
+                "timezone": {
+                    "offset": "+1:00",
+                    "description": "Brussels, Copenhagen, Madrid, Paris"
+                }
+            },
+            "email": "julia.kumpula@example.com",
+            "login": {
+                "uuid": "76671957-6280-4299-9589-fff5bcdb622a",
+                "username": "purplewolf980",
+                "password": "loud",
+                "salt": "lFaiMJuu",
+                "md5": "7c6f7b5c390f1d4f38d6a1c8998a4ba8",
+                "sha1": "66c766e690823271681e985dc9de5e2e419fa8dc",
+                "sha256": "426b392e0a6f2e4d8641bc469d9cace15e9a4321061f8fd6d0c8d58ca23f45c6"
+            },
+            "dob": {
+                "date": "2000-04-29T17:21:26.066Z",
+                "age": 22
+            },
+            "registered": {
+                "date": "2009-05-03T19:44:09.696Z",
+                "age": 13
+            },
+            "phone": "08-864-116",
+            "cell": "043-182-02-81",
+            "id": {
+                "name": "HETU",
+                "value": "NaNNA232undefined"
+            },
+            "picture": {
+                "large": "https://randomuser.me/api/portraits/women/71.jpg",
+                "medium": "https://randomuser.me/api/portraits/med/women/71.jpg",
+                "thumbnail": "https://randomuser.me/api/portraits/thumb/women/71.jpg"
+            },
+            "nat": "FI"
+        }
+    ],
+    "info": {
+        "seed": "5f4af5a7e8c505fd",
+        "results": 1,
+        "page": 1,
+        "version": "1.4"
+    }
+}

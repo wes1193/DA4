@@ -20,6 +20,8 @@ namespace API.Middleware
         readonly ILogger<ExceptionMiddleware> _logger;
         readonly  IHostEnvironment _env;
 
+        private API.Extensions.LoggingExtensions _Logger = null;
+
         public ExceptionMiddleware(RequestDelegate next,  
                                     ILogger<ExceptionMiddleware> logger , 
                                     IHostEnvironment env )
@@ -27,19 +29,23 @@ namespace API.Middleware
             _next = next;
             _logger = logger;
             _env = env;
+            //_Logger = new API.Extensions.LoggingExtensions();
+
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
             try {
-                Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API.Middleware.ExceptionMiddleware - InvokeAsync - Start Try Block \n");
+                Console.WriteLine("\n\n\nAPI.Middleware.ExceptionMiddleware - InvokeAsync - Start Try Block ( await _next(context) ) \n");
+                //_Logger.LogMsg2Console(" API.Middleware.ExceptionMiddleware - InvokeAsync - Start Try Block ( await _next(context) ) \n");
                 await _next(context);
-                 Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API.Middleware.ExceptionMiddleware - InvokeAsync  - Exit Try Block \n");
+                Console.WriteLine("\n\n\nAPI.Middleware.ExceptionMiddleware - InvokeAsync - Start Try Block done \n");
+                // _Logger.LogMsg2Console(" API.Middleware.ExceptionMiddleware - InvokeAsync  - Exit Try Block - good call \n");
            
             }
             catch(Exception ex)
             {
-                Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API ExceptionMiddleware - InvokeAsync Exception Block \n");
+                Console.WriteLine("\n\n\n >>>>>>>>>>>> API ExceptionMiddleware - InvokeAsync Exception \n " + ex.Message);
                
                 _logger.LogError(ex, ex.Message);
                 context.Response.ContentType = "application/json";
@@ -53,6 +59,8 @@ namespace API.Middleware
 
                 var json = JsonSerializer.Serialize(response, options);  
 
+                // _Logger.LogMsg2Console("API ExceptionMiddleware - InvokeAsync Exception \n JSON: " + json.ToString());
+               
                 await context.Response.WriteAsync(json);
 
             }

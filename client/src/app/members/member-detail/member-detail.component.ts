@@ -56,8 +56,8 @@ export class MemberDetailComponent implements OnInit
       //let dateStr = transformDate(myDate); 
 
       //let msgStr =   myDate + " >>>>>> loadMember() message \n\n <<<<<<<";
-      let msgStr =   " >>>>>> loadMember() message \n\n <<<<<<<";
-      this.toastr.info(msgStr, "member-detail-compnent.ts", {  timeOut: 3000, });    
+      let msgStr =   "["+ new Date().toISOString() + "] >>>>>> MemberDetailComponent.loadMember() message  <<<<<<<";
+      this.toastr.info(msgStr, "member-detail-compnent.tss", {  timeOut: 3000, });    
       console.log(msgStr);
       this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {
             this.member = member ;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 //import { Console } from 'console';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
@@ -10,20 +11,22 @@ import { MembersService } from 'src/app/_services/members.service';
 })
 export class MemberListComponent implements OnInit {
 
-  members: Member[];
+  members$: Observable< Member[]>;
   
   constructor(private memberService: MembersService ) { }
 
   ngOnInit(): void {
-    //console.log( ">>> MemberListComponent.ts - ngOnInit");   
-    this.loadMembers();
+    console.log( "\n ["+ new Date().toISOString() + "] >>> MemberListComponent.ts - ngOnInit (load members)");   
+    //this.loadMembers();
+    this.members$= this.memberService.getMembers();
   }
 
-  loadMembers() {
+  /*loadMembers() {
         //console.log( ">>> MemberListComponent.ts - loadMembers");   
         this.memberService.getMembers().subscribe(members => {this.members = members;
       })
   }
+  */
 
   ngAfterContentInit(): void {
     //console.log( ">>> MemberListComponent.ts - ngAfterContentInit");   
