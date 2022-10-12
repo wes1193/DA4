@@ -64,7 +64,7 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   initializeUpLoader(){
-    console.log("\n["+ new Date().toISOString() + "] PhotoEditorComponent.ts - initializeUpLoader");
+    console.log("\n["+ new Date().toISOString() + "] PhotoEditorComponent.ts - initializeUpLoader - upload file");
     this.uploader = new FileUploader({
                                         url: this.baseUrl + 'users/add-photo',
                                         authToken: 'Bearer ' + this.user.token,
@@ -75,15 +75,23 @@ export class PhotoEditorComponent implements OnInit {
                                         maxFileSize: 10 * 1024 * 1024
                                       });
 
+    console.log("\n["+ new Date().toISOString() + "] PhotoEditorComponent.ts - initializeUpLoader - onAfterAddingFile");
     this.uploader.onAfterAddingFile = (file)  => {
               file.withCredentials = false;
             };
 
 
+    console.log("\n["+ new Date().toISOString() + "] PhotoEditorComponent.ts - initializeUpLoader - upload success");
     this.uploader.onSuccessItem = (item, response, status , headers) => {
       if (response)
-      { const photo = JSON.parse(response);
+      { const photo: Photo = JSON.parse(response);
         this.member.photos.push(photo);
+        if (photo.isMain) 
+        {
+            this.user.photoUrl = photo.url;
+            this.member.photoUrl = photo.url;
+            this.accountService.setCurrentUser(this.user);
+        }
       }
     }
 

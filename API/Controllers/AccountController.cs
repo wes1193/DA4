@@ -12,6 +12,7 @@ using API.Entities;
 using API.DTOs;
 using API.Services;
 using API.Interfaces;
+using AutoMapper;
 
 namespace API.Controllers
 {
@@ -19,10 +20,15 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
+        private readonly IMapper _mapper;
 
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-        public AccountController(DataContext context, ITokenService tokenService)
+        public AccountController(DataContext context, 
+                                ITokenService tokenService ,
+                                IMapper mapper
+                                )
         {   Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] AccountController Constructor") ;           
+            _mapper = mapper;
             _tokenService = tokenService;
             _context = context;            
         }
@@ -32,23 +38,27 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> Register( RegisterDto registerDto)
         {
             Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Register\n");
-                if (await UserExists(registerDto.Username))  return BadRequest(String.Format("Username {0} is taken", registerDto.Username));
+            if (await UserExists(registerDto.Username))  return BadRequest(String.Format("Username {0} is taken", registerDto.Username));
 
-                using var hmac = new HMACSHA512();
 
-                var user = new AppUser()
-                {
-                    UserName = registerDto.Username.ToLower(),
-                    PasswordHash  = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password) ),
-                    PasswordSalt = hmac.Key
-                };
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
+            var user = _mapper.Map<AppUser>(registerDto);
 
-                return new UserDto{
-                    Username = user.UserName,
-                    Token = _tokenService.CreateToken(user)
-                };
+            using var hmac = new HMACSHA512();
+            
+            user.UserName = registerDto.Username.ToLower() ; 
+            user.PasswordHash  = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password) );
+            user.PasswordSalt = hmac.Key;            
+            
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Register - saved user: " + user.UserName + "\n");
+           
+            return new UserDto
+            {   Username = user.UserName ,
+                Token = _tokenService.CreateToken(user) ,
+                KnownAs = user.KnownAs
+            };
                 
         }
 
@@ -95,7 +105,8 @@ namespace API.Controllers
             return new UserDto
             {   Username = user.UserName,
                 Token = _tokenService.CreateToken(user) ,
-                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url ,
+                KnownAs = user.KnownAs
             };
 
         }

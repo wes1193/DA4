@@ -1,5 +1,5 @@
 
-start on Lesson #138 
+start on Lesson #151
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 to run the app
@@ -232,7 +232,13 @@ npm install ng2-file-upload --save
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+    MISC:
+    Comments out multiple lines
+    Comment Code Block 
+    Ctrl+K+C
+    Ctrl+K+U 
 
+    or ALT+Shift+A
 
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

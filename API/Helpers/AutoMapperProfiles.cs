@@ -13,15 +13,25 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            Console.WriteLine("\n>>>> AutoMapperProfiles - Constructor()");
+            Console.WriteLine("\n>>>> (API-Helpers)AutoMapperProfiles - Constructor()");
+            Console.WriteLine("\n>>>> (API-Helpers)AutoMapperProfiles - Constructor() - create map - <AppUser, MemberDto>");
             CreateMap<AppUser, MemberDto>()
-                    .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => 
-                                src.Photos.FirstOrDefault(x => x.IsMain).Url))
+                    .ForMember( dest => dest.PhotoUrl, opt => opt.MapFrom(src => 
+                                            src.Photos.FirstOrDefault(x => x.IsMain).Url
+                                                                        )
+                               )
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>src.DateOfBirth.CalculateAge()));
 
+            Console.WriteLine("\n>>>> (API-Helpers)AutoMapperProfiles - Constructor() - create map - <Photo, PhotoDto>");
             CreateMap<Photo, PhotoDto>();
 
+            Console.WriteLine("\n>>>> (API-Helpers)AutoMapperProfiles - Constructor() - create map - <MemberUpdateDto,AppUser>");
             CreateMap<MemberUpdateDto,AppUser> ();
+
+            Console.WriteLine("\n>>>> (API-Helpers)AutoMapperProfiles - Constructor() - create map - <RegisterDto,AppUser>");
+            CreateMap<RegisterDto,AppUser> ();
+
+
         }
     }
 }
