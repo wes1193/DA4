@@ -1,8 +1,7 @@
 
-start on Lesson #151
-
+start on Lesson #170
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-to run the app
+to run the app, open 2 terminal windows
 1) cd API - dotnet watch run
 2) cd client - ng serve
 
@@ -85,6 +84,13 @@ C:\temp\DatingApp\StudentAssets\UserSeedData.json
  then once the reseed logic is in place, should be able to do
  DOTNET WATCH RUN,  and it will recreate
 
+
+  SELECT * FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' 
+
+      SELECT "MigrationId", "ProductVersion"
+      FROM "__EFMigrationsHistory"
+      ORDER BY "MigrationId";
+
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 to DEBUG
 look at lesson #38
@@ -95,6 +101,8 @@ then click the little green arrow to run teh debugger
 it will open a dropdown of processes to attach to
 >>>> pick the one with API.exe in it
 do the test
+
+
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 BootStrap
@@ -140,7 +148,9 @@ https://randomuser.me/photos
 
 "https://randomuser.me/api/portraits/men/22.jpg"
 
+
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+NPM packages
 
 ngx-spinner
 http://www.npmjs.com/package/ngx-spinner
@@ -161,6 +171,8 @@ his video got an error and he had to installnpm install @angular/cdk
 but it got an error for member
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Image Storage 
+
 image storage - Cloudinary
 Cloudinary.com
 wes1193@comcast.net 
@@ -229,6 +241,14 @@ npm install ng2-file-upload --save
     Source: stackoverflow.com
 
 
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+npm packages
+
+for date times functionality:
+https://npmjs.com/package/ngx-timeago   
+
+npm install ngx-timeago
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
