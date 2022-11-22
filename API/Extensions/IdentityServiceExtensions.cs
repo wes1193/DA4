@@ -19,11 +19,11 @@ namespace API.Extensions
 {
     public static class IdentityServiceExtensions
     {
-        public static IServiceCollection AddIdentityServics(this IServiceCollection services,
+        public static IServiceCollection AddIdentityServices(this IServiceCollection services,
              IConfiguration config)
         {
 
-            Console.WriteLine("IdentityServiceExtensions - AddIdentityServics") ;            
+            Console.WriteLine("\n\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> API.Extensions.IdentityServiceExtensions - AddIdentityServices()") ;            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters

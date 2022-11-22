@@ -1,5 +1,5 @@
 
-start on Lesson #170
+start on Lesson #180
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 to run the app, open 2 terminal windows
 1) cd API - dotnet watch run
@@ -75,6 +75,9 @@ C:\temp\DatingApp\StudentAssets\UserSeedData.json
  use "dotnet ef migrations add ExtendedUserEnity "
  or use "dotnet ef migrations remove"
 
+11/9/2022
+dotnet ef migrations add LikeEntityAdded
+
  to commit the migration to the database
  use "dotnet ef database update"
 
@@ -99,7 +102,7 @@ set a breakpoint in c#
 in the left NAv pane select the Debug Icon, 4th one down in the list
 then click the little green arrow to run teh debugger
 it will open a dropdown of processes to attach to
->>>> pick the one with API.exe in it
+>>>> pick the one with "API.exe" in it (API.exe is the exectutable that was created when the API code is compiled)
 do the test
 
 
@@ -143,7 +146,7 @@ go here for usage instructions ?
 https://github.com/kolkov/ngx-gallery#readme
 
 
-go here to get randome pictures
+go here to get random pictures
 https://randomuser.me/photos
 
 "https://randomuser.me/api/portraits/men/22.jpg"

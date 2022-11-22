@@ -27,10 +27,10 @@ namespace API.Services
 
         public string CreateToken(AppUser user)
         {
-            
-            Console.WriteLine(" TokenService - CreateToken - start") ; 
+            Console.WriteLine("\n\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> TokenService - CreateToken - start") ;                        
             var claims = new List<Claim>
-            { new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
+            { new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()) ,
+              new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName.ToString())
             };
 
             var creds =  new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
@@ -42,12 +42,12 @@ namespace API.Services
                     SigningCredentials = creds
             };
 
-            Console.WriteLine(" TokenService - CreateToken - return - tokenDescriptor: " + tokenDescriptor.ToString() ) ; 
+            Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> TokenService - CreateToken - return - tokenDescriptor: " + tokenDescriptor.ToString() ) ; 
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var token =  tokenHandler.CreateToken(tokenDescriptor);
 
-            Console.WriteLine(" TokenService - CreateToken - return - token: " + token.ToString() ) ; 
+            Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> TokenService - CreateToken - return - token: " + token.ToString() ) ; 
             return tokenHandler.WriteToken(token);
         }
     }

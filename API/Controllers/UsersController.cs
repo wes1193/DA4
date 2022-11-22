@@ -13,6 +13,7 @@ using API.Extensions;
 using AutoMapper;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -32,7 +33,7 @@ namespace API.Controllers
                                 , IMapper mapper
                                 , IPhotoService photoService   )
         {
-            Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>>>>>>> API UsersControler - Constructor");
+            Console.WriteLine(">>> API.UsersControler.Constructor");
             
             _photoService = photoService;
             _mapper = mapper;
@@ -46,8 +47,24 @@ namespace API.Controllers
         [HttpGet] 
         /*[AllowAnonymous]*/
        //public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
-       public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+       public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
+            _Logger.LogMsg2Console(">>> API.UsersControler.GetUsers [HttpGet]");
+
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            userParams.CurrentUsername = user.UserName;
+            if (string.IsNullOrEmpty(  userParams.Gender) )
+            {
+                userParams.Gender = user.Gender == "male" ? "female": "male";
+            }
+
+           // var users = await _userRepository.GetMembersAsync();
+            var users = await _userRepository.GetMembersAsync(userParams);
+
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+
+            return Ok(users); 
+
             //var users = _context.Users.ToList();
             //return users;
             //return await  _context.Users.ToListAsync();
@@ -60,9 +77,6 @@ namespace API.Controllers
             // var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
             // return Ok(usersToReturn); 
 
-            _Logger.LogMsg2Console(">>>>>>>> API UsersControler GetUsers [HttpGet]");
-            var users = await _userRepository.GetMembersAsync();
-            return Ok(users); 
         }
 
 
@@ -79,7 +93,7 @@ namespace API.Controllers
             // return await  _context.Users.FindAsync(id);
             // return await _userRepository.GetUserByUsernameAsync(username);
 
-            _Logger.LogMsg2Console(">>>>> API UsersControler - GetUser [HttpGet] - username: " + username.ToString() + "\n");    
+            _Logger.LogMsg2Console(">>> API UsersControler - GetUser [HttpGet] - username: " + username.ToString() + "\n");    
             //var user  = await _userRepository.GetUserByUsernameAsync(username);
             //return  _mapper.Map<MemberDto>(user);
 
@@ -92,29 +106,29 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto )
         {  
-            _Logger.LogMsg2Console(">>>>>>> API UsersControler UpdateUser [HttpPut] \n");
+            _Logger.LogMsg2Console(">>> API UsersControler UpdateUser [HttpPut] \n");
              
              /* get the username from the TOkEN that the APi is using to pass back and forth from the client */
              
              // var username  = User.GetUsername();  not needed anymore
-            _Logger.LogMsg2Console(">>>>>>>> API UsersControler UpdateUser - " + User.GetUsername());
+            _Logger.LogMsg2Console(">>> API UsersControler UpdateUser - " + User.GetUsername());
 
              // get the user from the db
              var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
-            _Logger.LogMsg2Console("  >>>>>>>> API UsersControler UpdateUser - id = " + user.Id);
+            _Logger.LogMsg2Console("  >>> API UsersControler UpdateUser - id = " + user.Id);
 
              _mapper.Map(memberUpdateDto, user);  // maps from one obj to ob using Helpers\automapper
-            _Logger.LogMsg2Console(">>>>>>>> API UsersControler UpdateUser - memberUpdateDto = " + memberUpdateDto);
+            _Logger.LogMsg2Console(">>> API UsersControler UpdateUser - memberUpdateDto = " + memberUpdateDto);
 
             _userRepository.Update(user);
 
             if (await _userRepository.SaveAllAsync())       
                 {
-                    _Logger.LogMsg2Console("  >>>>>>>> API UsersControler UpdateUser - _userRepository - good save ");
+                    _Logger.LogMsg2Console("  >>> API UsersControler UpdateUser - _userRepository - good save ");
                     return NoContent();// successful update
                 }
 
-            _Logger.LogMsg2Console(">>>>>>>> API UsersControler UpdateUser - _userRepository - bad save ");
+            _Logger.LogMsg2Console(">>> API UsersControler UpdateUser - _userRepository - bad save ");
                
                return BadRequest("Failed to update user");     // UNsuccessful update
 

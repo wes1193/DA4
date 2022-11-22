@@ -29,11 +29,16 @@ namespace API.Controllers
         [HttpGet("not-found")]
         public ActionResult<AppUser> GetNotFound()
         {
+        Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API BuggyController - GetNotFound \n");
            var thing = _context.Users.Find(-1)  ;  // this will never exist
 
-           if (thing == null) return NotFound();
+           if (thing == null) 
+           { Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API BuggyController - GetNotFound - return Not Found: "  );
+            return NotFound();
+           }
 
-           return Ok(thing);
+           Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API BuggyController - GetNotFound - return OK "  +  thing.ToString() );
+           return NotFound(thing);
         }
 
         [HttpGet("server-error")]
@@ -48,7 +53,8 @@ namespace API.Controllers
                 var thingToReturn = thing.ToString();   // generate a Null reference exception
                 
                 Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API BuggyController - GetServerError - return thingToReturn \n");
-                return thingToReturn;
+                
+                 return StatusCode(500, "Status Code 500 thingToReturn: " + thingToReturn.ToString() );  ; 
          /*   }
             catch(Exception ex)
             {
@@ -66,7 +72,12 @@ namespace API.Controllers
         [HttpGet("bad-request")]
         public ActionResult<string> GetBadRequest()
         {
-            return BadRequest("this was not a good request");
+            Console.WriteLine("\n\n\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API BuggyController - GetBadRequest \n");
+            return BadRequest("This was not a good request at all");  // 400
+            //return Ok();            
+            //return UnprocessableEntity() ;   // 422
+           //return Forbid();    // 400
+            //return ValidationProblem(); // 400
         }
 
     }

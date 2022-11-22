@@ -38,16 +38,25 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {   
-            Console.WriteLine("\n\n>>>> API - Startup.cs - ConfigureServices()");
+            Console.WriteLine("\n\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> API - Startup.cs - ConfigureServices() - AddApplicationServices");
             services.AddApplicationServices(_config);
+            
+            Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> API - Startup.cs - ConfigureServices() - AddControllers");
             services.AddControllers();
-            services.AddCors();        /* add this to allow the Ang client to access the API on a different URL */
-            services.AddIdentityServics(_config);
 
+            Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> API - Startup.cs - ConfigureServices() - AddCors");
+            services.AddCors();        /* add this to allow the Ang client to access the API on a different URL */
+            
+            Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> API - Startup.cs - ConfigureServices() - AddIdentityServices");
+            services.AddIdentityServices(_config);
+
+            Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> API - Startup.cs - ConfigureServices() - AddSwaggerGen");
             services.AddSwaggerGen(c =>
                 { c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" } );
                 }
             );
+
+            Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> API - Startup.cs - ConfigureServices() - done \n\n");
         }
 
 
@@ -60,7 +69,7 @@ namespace API
             //{  app.UseDeveloperExceptionPage();                
             //}
 
-            Console.WriteLine("\n>>>> Startup.cs - Configure()");
+            Console.WriteLine("\n\n\n >>>> API - Startup.cs - Configure() - Start <<<<<");
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
@@ -79,7 +88,8 @@ namespace API
                                 {  endpoints.MapControllers();
                                 }
                             );
-            
+
+            Console.WriteLine(">>>> API - Startup.cs - Configure() - end <<<<< \n ");            
         }
     }
 }

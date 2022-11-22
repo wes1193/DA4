@@ -1,0 +1,94 @@
+info: 11/22/2022 15:26:18.513 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 6.0.5 initialized 'DataContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite:6.0.5' with options: SensitiveDataLoggingEnabled DetailedErrorsEnabled 
+dbug: 11/22/2022 15:26:18.523 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query) 
+      Compiling query expression: 
+      'DbSet<AppUser>()
+          .Include(p => p.Photos)
+          .SingleOrDefault(x => x.UserName == __loginDto_Username_0)'
+dbug: 11/22/2022 15:26:18.544 CoreEventId.NavigationBaseIncluded[10112] (Microsoft.EntityFrameworkCore.Query) 
+      Including navigation: 'AppUser.Photos'.
+dbug: 11/22/2022 15:26:18.631 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query) 
+      Generated query execution expression: 
+      'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<AppUser>(
+          asyncEnumerable: new SingleQueryingEnumerable<AppUser>(
+              (RelationalQueryContext)queryContext, 
+              RelationalCommandCache.SelectExpression(
+                  Client Projections:
+                      0 -> Dictionary<IProperty, int> { [Property: AppUser.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: AppUser.City (string), 1], [Property: AppUser.Country (string), 2], [Property: AppUser.Created (DateTime) Required, 3], [Property: AppUser.DateOfBirth (DateTime) Required, 4], [Property: AppUser.Description (string), 5], [Property: AppUser.Email (string), 6], [Property: AppUser.Gender (string), 7], [Property: AppUser.Interests (string), 8], [Property: AppUser.Introduction (string), 9], [Property: AppUser.KnownAs (string), 10], [Property: AppUser.LastActive (DateTime) Required, 11], [Property: AppUser.LookingFor (string), 12], [Property: AppUser.PasswordHash (byte[]), 13], [Property: AppUser.PasswordSalt (byte[]), 14], [Property: AppUser.Phone (string), 15], [Property: AppUser.UserName (string), 16] }
+                      1 -> 0
+                      2 -> Dictionary<IProperty, int> { [Property: Photo.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 17], [Property: Photo.AppUserId (int) Required FK Index, 18], [Property: Photo.IsMain (bool) Required, 19], [Property: Photo.PublicId (string), 20], [Property: Photo.Url (string), 21] }
+                      3 -> 17
+                  SELECT t.Id, t.City, t.Country, t.Created, t.DateOfBirth, t.Description, t.Email, t.Gender, t.Interests, t.Introduction, t.KnownAs, t.LastActive, t.LookingFor, t.PasswordHash, t.PasswordSalt, t.Phone, t.UserName, p.Id, p.AppUserId, p.IsMain, p.PublicId, p.Url
+                  FROM 
+                  (
+                      SELECT TOP(2) u.Id, u.City, u.Country, u.Created, u.DateOfBirth, u.Description, u.Email, u.Gender, u.Interests, u.Introduction, u.KnownAs, u.LastActive, u.LookingFor, u.PasswordHash, u.PasswordSalt, u.Phone, u.UserName
+                      FROM Users AS u
+                      WHERE u.UserName == @__loginDto_Username_0
+                  ) AS t
+                  LEFT JOIN Photos AS p ON t.Id == p.AppUserId
+                  ORDER BY t.Id ASC), 
+              Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, AppUser>, 
+              API.Data.DataContext, 
+              False, 
+              True, 
+              True
+          ), 
+          cancellationToken: queryContext.CancellationToken)'
+dbug: 11/22/2022 15:26:18.641 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 11/22/2022 15:26:18.641 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 11/22/2022 15:26:18.642 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'datingapp.db'.
+dbug: 11/22/2022 15:26:18.642 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'main' on server 'C:\temp\DatingApp\API\datingapp.db'.
+dbug: 11/22/2022 15:26:18.644 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[@__loginDto_Username_0='lisa' (Size = 4)], CommandType='Text', CommandTimeout='30']
+      SELECT "t"."Id", "t"."City", "t"."Country", "t"."Created", "t"."DateOfBirth", "t"."Description", "t"."Email", "t"."Gender", "t"."Interests", "t"."Introduction", "t"."KnownAs", "t"."LastActive", "t"."LookingFor", "t"."PasswordHash", "t"."PasswordSalt", "t"."Phone", "t"."UserName", "p"."Id", "p"."AppUserId", "p"."IsMain", "p"."PublicId", "p"."Url"
+      FROM (
+          SELECT "u"."Id", "u"."City", "u"."Country", "u"."Created", "u"."DateOfBirth", "u"."Description", "u"."Email", "u"."Gender", "u"."Interests", "u"."Introduction", "u"."KnownAs", "u"."LastActive", "u"."LookingFor", "u"."PasswordHash", "u"."PasswordSalt", "u"."Phone", "u"."UserName"
+          FROM "Users" AS "u"
+          WHERE "u"."UserName" = @__loginDto_Username_0
+          LIMIT 2
+      ) AS "t"
+      LEFT JOIN "Photos" AS "p" ON "t"."Id" = "p"."AppUserId"
+      ORDER BY "t"."Id"
+info: 11/22/2022 15:26:18.646 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (4ms) [Parameters=[@__loginDto_Username_0='lisa' (Size = 4)], CommandType='Text', CommandTimeout='30']
+      SELECT "t"."Id", "t"."City", "t"."Country", "t"."Created", "t"."DateOfBirth", "t"."Description", "t"."Email", "t"."Gender", "t"."Interests", "t"."Introduction", "t"."KnownAs", "t"."LastActive", "t"."LookingFor", "t"."PasswordHash", "t"."PasswordSalt", "t"."Phone", "t"."UserName", "p"."Id", "p"."AppUserId", "p"."IsMain", "p"."PublicId", "p"."Url"
+      FROM (
+          SELECT "u"."Id", "u"."City", "u"."Country", "u"."Created", "u"."DateOfBirth", "u"."Description", "u"."Email", "u"."Gender", "u"."Interests", "u"."Introduction", "u"."KnownAs", "u"."LastActive", "u"."LookingFor", "u"."PasswordHash", "u"."PasswordSalt", "u"."Phone", "u"."UserName"
+          FROM "Users" AS "u"
+          WHERE "u"."UserName" = @__loginDto_Username_0
+          LIMIT 2
+      ) AS "t"
+      LEFT JOIN "Photos" AS "p" ON "t"."Id" = "p"."AppUserId"
+      ORDER BY "t"."Id"
+dbug: 11/22/2022 15:26:18.675 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'AppUser' entity with key '{Id: 15}'.
+dbug: 11/22/2022 15:26:18.712 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'Photo' entity with key '{Id: 15}'.
+dbug: 11/22/2022 15:26:18.724 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'Photo' entity with key '{Id: 21}'.
+dbug: 11/22/2022 15:26:18.724 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'Photo' entity with key '{Id: 22}'.
+dbug: 11/22/2022 15:26:18.724 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'Photo' entity with key '{Id: 23}'.
+dbug: 11/22/2022 15:26:18.724 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'Photo' entity with key '{Id: 24}'.
+dbug: 11/22/2022 15:26:18.724 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'Photo' entity with key '{Id: 26}'.
+dbug: 11/22/2022 15:26:18.724 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'Photo' entity with key '{Id: 27}'.
+dbug: 11/22/2022 15:26:18.724 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'Photo' entity with key '{Id: 29}'.
+dbug: 11/22/2022 15:26:18.724 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'DataContext' started tracking 'Photo' entity with key '{Id: 32}'.
+dbug: 11/22/2022 15:26:18.724 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 11/22/2022 15:26:18.724 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'main' on server 'C:\temp\DatingApp\API\datingapp.db'.
+dbug: 11/22/2022 15:26:18.724 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'main' on server 'datingapp.db'.
+dbug: 11/22/2022 15:26:18.845 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'DataContext' disposed.

@@ -17,7 +17,7 @@ namespace API.Data
             Console.WriteLine("\n\n >>>>> [" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>>>>>> Class Seed - SeedUsers - Start");
             // check and see if there are any users in the DB
             if(await context.Users.AnyAsync()) 
-            {   Console.WriteLine("\n [" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>>>>>>>> Class Seed - SeedUsers - Found Some Users, so exiting");
+            {   Console.WriteLine("\n [" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>>>>>>>> Class Seed - SeedUsers - Found Some Users, so exiting \n\n");
                 return;
             }
             

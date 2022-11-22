@@ -1248,7 +1248,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/api/likes",
+							"raw": "{{url}}/api/likes?predicate=liked",
 							"host": [
 								"{{url}}"
 							],

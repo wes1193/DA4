@@ -28,10 +28,14 @@ namespace API.Entities
 
          public ICollection<Photo> Photos { get; set; }
 
-        //  public int GetAge()
-        //  {
-        //     return DateOfBirth.CalculateAge();
-        //  }
+         public ICollection<UserLike> LikedByUsers { get; set; }
+
+         public ICollection<UserLike> LikedUsers { get; set; }
+
+         AppUser()
+         {
+            Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] >>> API-Entity-Constructor()");
+         }
          
         
     }   // end - class

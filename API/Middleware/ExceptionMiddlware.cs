@@ -37,7 +37,7 @@ namespace API.Middleware
         {
             try {
                 Console.WriteLine("\n\n\nAPI.Middleware.ExceptionMiddleware - InvokeAsync - Start Try Block ( await _next(context) ) \n");
-                //_Logger.LogMsg2Console(" API.Middleware.ExceptionMiddleware - InvokeAsync - Start Try Block ( await _next(context) ) \n");
+               // _Logger.LogMsg2Console(" API.Middleware.ExceptionMiddleware - InvokeAsync - Start Try Block ( await _next(context) ) \n");
                 await _next(context);
                 Console.WriteLine("\n\n\nAPI.Middleware.ExceptionMiddleware - InvokeAsync - Start Try Block done \n");
                 // _Logger.LogMsg2Console(" API.Middleware.ExceptionMiddleware - InvokeAsync  - Exit Try Block - good call \n");

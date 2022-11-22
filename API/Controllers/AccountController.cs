@@ -53,11 +53,12 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
 
             Console.WriteLine("\n[" + DateTime.Now.ToString("hh:mm:ss.ffff") + "] API AccountController - Register - saved user: " + user.UserName + "\n");
-           
+         
             return new UserDto
             {   Username = user.UserName ,
                 Token = _tokenService.CreateToken(user) ,
-                KnownAs = user.KnownAs
+                KnownAs = user.KnownAs ,
+                Gender = user.Gender
             };
                 
         }
@@ -106,7 +107,8 @@ namespace API.Controllers
             {   Username = user.UserName,
                 Token = _tokenService.CreateToken(user) ,
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url ,
-                KnownAs = user.KnownAs
+                KnownAs = user.KnownAs ,
+                Gender = user.Gender
             };
 
         }

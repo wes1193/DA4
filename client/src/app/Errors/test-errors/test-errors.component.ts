@@ -12,47 +12,58 @@ export class TestErrorsComponent implements OnInit {
   validationErrors: string[] = [];
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+    console.log( "\n\n["+ new Date().toISOString() + "]  ngOnInit - constructor");
+   }
 
   ngOnInit(): void {
+    console.log( "\n\n["+ new Date().toISOString() + "]  ngOnInit - start");
   }
 
   get404Error()
   {
+    console.log( "\n\n["+ new Date().toISOString() + "]  get404Error - start");
+    
     this.http.get(this.baseUrl+'buggy/not-found').subscribe(
-        response => { console.log(response);
+        response => { console.log("\n\n["+ new Date().toISOString() + "] buggy-not-found 404 - response: " + JSON.stringify(response));
                     } , 
-        error =>    {console.log(error);
+        error =>    { console.log("\n\n["+ new Date().toISOString() + "] buggy-not-found 404 - error: " +  JSON.stringify(error) );
                     }
       )
   }
 
   get400Error()
   {
+    console.log( "\n\n["+ new Date().toISOString() + "]  get400Error - start");
+    
     this.http.get(this.baseUrl+'buggy/bad-request').subscribe(
-        response => { console.log(response);
+        response => { console.log("\n\n["+ new Date().toISOString() + "] buggy-bad-request 400 - response: " + JSON.stringify(response));
                     } , 
-        error =>    {console.log(error);
+        error =>    {console.log("\n\n["+ new Date().toISOString() + "]  buggy-bad-request 400 - error: " + JSON.stringify(error) );
                     }
       )
   }
 
   get500Error()
   {
+    console.log( "\n\n["+ new Date().toISOString() + "]  get400Validationget500ErrorError - start");
+    
     this.http.get(this.baseUrl+'buggy/server-error').subscribe(
-        response => { console.log(response);
+        response => { console.log("\n\n["+ new Date().toISOString() + "]  buggy-server-error 500 - response: " + JSON.stringify(response));
                     } , 
-        error =>    {console.log(error);
+        error =>    {console.log("\n\n["+ new Date().toISOString() + "]  buggy-server-error 500 - error: " + JSON.stringify(error) );
                     }
       )
   }
 
   get401Error()
   {
+    console.log( "\n\n["+ new Date().toISOString() + "]  get401Error - start");
+    
     this.http.get(this.baseUrl+'buggy/auth').subscribe(
-        response => { console.log(response);
+        response => { console.log("\n\n["+ new Date().toISOString() + "]  buggy-auth 401 - response: " + JSON.stringify(response));
                     } , 
-        error =>    {console.log(error);
+        error =>    {console.log("\n\n["+ new Date().toISOString() + "]  buggy-auth 401 - error: " + JSON.stringify(error) );
                     }
       )
   }
@@ -60,10 +71,12 @@ export class TestErrorsComponent implements OnInit {
 
   get400ValidationError()
   {
+    console.log( "\n\n["+ new Date().toISOString() + "]  get400ValidationError - start");
+    
     this.http.post(this.baseUrl + 'account/register', {}).subscribe(
-        response => { console.log(response);
+        response => { console.log( "\n\n["+ new Date().toISOString() + "]  get400ValidationError - response: " + JSON.stringify(response) );
                     } , 
-           error => {console.log(error);
+           error => {console.log( "\n\n["+ new Date().toISOString() + "]  get400ValidationError - error: " + JSON.stringify(error) );
                       this.validationErrors = error;
                     }
       )

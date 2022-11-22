@@ -8,25 +8,25 @@
         <div class="card">
             <img src="{{member.photoUrl || './assets/user.png' }}" alt="{{member.knownAs}" 
                 class="card-img-top img-thumbnail">
-                <div class="card-body">
+                <div >
                     <strong>Location:</strong>
                     <p>{{member.city}}, {{member.country}}</p>
                 </div>
             
-                <div class="card-body">
+                <div >
                     <strong>Age:</strong>
                     <p>{{member.age}}</p>
                 </div>
             
             
-                <div class="card-body">
+                <div >
                     <strong>Last Active::</strong>
-                    <p>{{member.lastActive}}</p>
+                    <p>{{member.lastActive  | timeago}}</p>
                 </div>
                 
-                <div class="card-body">
+                <div >
                     <strong>Member since:</strong>
-                    <p>{{member.created}}</p>
+                    <p>{{member.created | date:'dd MMM yyyy' }}</p>
                 </div>
             
         </div>

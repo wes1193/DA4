@@ -9,7 +9,7 @@ namespace API.Extensions
     {
         public static int CalculateAge(this DateTime dob)
         {
-            Console.WriteLine("DateTimeExtensions - CalculateAge") ;            
+            Console.WriteLine("\n\n API.Extensions - DateTimeExtensions - CalculateAge: " + dob.ToString() ) ;            
             var today = DateTime.Today;
             var age = today.Year - dob.Year;
             if (dob.Date> today.AddYears(-age)) age--;

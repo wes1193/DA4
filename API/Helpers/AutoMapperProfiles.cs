@@ -13,8 +13,7 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            Console.WriteLine("\n>>>> (API-Helpers)AutoMapperProfiles - Constructor()");
-            Console.WriteLine("\n>>>> (API-Helpers)AutoMapperProfiles - Constructor() - create map - <AppUser, MemberDto>");
+            Console.WriteLine("\n\n>>>> (API-Helpers)AutoMapperProfiles - Constructor() - create map - <AppUser, MemberDto>");
             CreateMap<AppUser, MemberDto>()
                     .ForMember( dest => dest.PhotoUrl, opt => opt.MapFrom(src => 
                                             src.Photos.FirstOrDefault(x => x.IsMain).Url
